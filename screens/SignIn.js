@@ -1,40 +1,83 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {Button, SafeAreaView, StyleSheet, TextInput} from 'react-native';
 import { AuthContext } from '../store/context/authContext'
+import { View, Text } from 'react-native';
+
+const Login = ({ navigation }) => {
+  const authContext = useContext(AuthContext)
+  return (
+    <View >
+      <Text style={styles.title}>Login</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        autoCapitalize="none"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        secureTextEntry
+      />
+      <Button title="Login" onPress={() => {authContext.onLogin()}} />
+    </View>
+  );
+};
+
+
+const SignUp = () => {
+  const authContext = useContext(AuthContext)
+  return (
+    <View >
+      <Text style={styles.title}>Sign Up</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        autoCapitalize="none"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        secureTextEntry
+      />
+      <Button title="Sign Up" onPress={() => {authContext.onLogin()}} />
+    </View>
+  );
+};
 
 const SignIn = () => {
 
   const authContext = useContext(AuthContext)
-
-  const [text, onChangeText] = React.useState('Useless Text');
-  const [number, onChangeNumber] = React.useState('');
+  const [isSignUp, setIsSignUp] = useState(true)
 
   return (
-    <SafeAreaView>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={text}
-      />
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder="useless placeholder"
-        keyboardType="numeric"
-      />
-      <Button onPress={() => {authContext.onLogin()}} title='Sign In' />
-    </SafeAreaView>
+    <View style={styles.container}>
+      {
+        isSignUp ? <SignUp /> : <Login />
+      }
+      <Button onPress={() => {setIsSignUp(!isSignUp)}} title={isSignUp ? " Login" : "Sign up"} />
+      <Button title='Sign In With Google' />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
+  input: {
+    width: '80%',
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingLeft: 10,
+  }
 });
 
 export default SignIn;

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
-const LeaderBoardBox = ({rank, hashtag, username, likes}) => {
+const LeaderBoardBox = ({rank, hashtag, username, likes, feed}) => {
   return (
     <View>
       <Text>{rank}</Text>
@@ -13,11 +13,14 @@ const LeaderBoardBox = ({rank, hashtag, username, likes}) => {
           <Text>{likes} Likes</Text>
         </View>
       </View>
+      {feed && <View>
+        <Button title='like' />
+        </View>}
     </View>
   )
 }
 
-export default function Leaderboard() {
+export default function Feed() {
   const [leaderBoardData, setLeaderBoardData ] = useState([{
     rank: 1,
     hashtag: "hashtag",
@@ -28,7 +31,7 @@ export default function Leaderboard() {
     <View style={styles.container}>
       <Text>Leaderboard</Text>
       {leaderBoardData.map((item) => {
-        return <LeaderBoardBox {...item} />
+        return <LeaderBoardBox {...item} feed={true} />
       })}
       <StatusBar style="auto" />
     </View>
