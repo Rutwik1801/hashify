@@ -7,7 +7,6 @@ import NewPost from '../screens/NewPost'
 import SignIn from '../screens/SignIn'
 import { useContext } from 'react'
 import { AuthContext } from '../store/context/authContext'
-import Feed from '../screens/Feed'
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -26,7 +25,6 @@ const BottomTabNavigation = () => {
     <Tab.Navigator>
       <Tab.Screen name="Leaderboard" component={Leaderboard} />
       <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Feed" component={Feed} />
     </Tab.Navigator>
   );
 
